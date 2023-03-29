@@ -1,4 +1,4 @@
-import { cls } from "@/utils/libs";
+import { cls } from "@/libs/libs";
 import { useState } from "react";
 
 export default function Enter() {
