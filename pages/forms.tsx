@@ -7,7 +7,13 @@ interface iLoginForm {
 }
 
 export default function Forms() {
-  const { register, handleSubmit } = useForm<iLoginForm>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<iLoginForm>({
+    mode: "onChange",
+  });
 
   const onVaild = (data: iLoginForm) => {
     console.log("i'm vaild");
@@ -31,10 +37,17 @@ export default function Forms() {
       <input
         {...register("email", {
           required: "Email is Required",
+          validate: {
+            notGmail: (value) =>
+              //   !value.includes("@gmail.com") ? "" : "Gmail is not allowed",
+              !value.includes("@gmail.com") || "Gmail is not allowed",
+          },
         })}
         type="email"
         placeholder="Email"
+        className={`${Boolean(errors.email?.message) ? "border-red-200" : ""}`}
       />
+      {errors.email?.message}
       <input
         {...register("password", {
           required: "Password is Required",
