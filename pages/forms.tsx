@@ -1,4 +1,4 @@
-import { FieldError, FieldErrors, useForm } from "react-hook-form";
+import { FieldErrors, useForm } from "react-hook-form";
 
 interface iLoginForm {
   username: string;
