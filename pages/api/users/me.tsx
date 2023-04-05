@@ -1,19 +1,7 @@
-import { withIronSessionApiRoute } from "iron-session/next";
 import { NextApiRequest, NextApiResponse } from "next";
 import client from "@libs/server/client";
 import withHandler, { ResponseType } from "@libs/server/withHandler";
-import twilio from "twilio";
-import smtpTransport from "@/libs/server/email";
-import { tokenToString } from "typescript";
-
-// const twilioClient = twilio(process.env.TWILIO_SID, process.env.TWILIO_TOKEN);
-declare module "iron-session" {
-  interface IronSessionData {
-    user?: {
-      id: number;
-    };
-  }
-}
+import { withApiSession } from "@/libs/server/withSession";
 
 async function handler(
   req: NextApiRequest,
@@ -29,7 +17,4 @@ async function handler(
   });
 }
 
-export default withIronSessionApiRoute(withHandler("GET", handler), {
-  cookieName: "carrotsession",
-  password: "473284789132748932174893274893271",
-});
+export default withApiSession(withHandler("GET", handler));
