@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import client from "@libs/server/client";
 import withHandler, { ResponseType } from "@libs/server/withHandler";
-import { withApiSession } from "@/libs/server/withSession";
+import client from "@libs/server/client";
+import { withApiSession } from "@libs/server/withSession";
 
 async function handler(
   req: NextApiRequest,
@@ -23,7 +23,9 @@ async function handler(
       userId: foundToken.userId,
     },
   });
-  return res.json({ ok: true });
+  res.json({ ok: true });
 }
 
-export default withApiSession(withHandler({ method: "POST", handler }));
+export default withApiSession(
+  withHandler({ method: "POST", handler, isPrivate: false })
+);

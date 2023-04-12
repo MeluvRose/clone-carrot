@@ -21,7 +21,7 @@ export default function withHandler({
     res: NextApiResponse
   ): Promise<any> {
     if (req.method !== method) return res.status(405).end();
-    if (isPrivate && req.session.user) {
+    if (isPrivate && !req.session.user) {
       return res.status(401).json({ ok: false, error: "Plz log in..." });
     }
     try {
