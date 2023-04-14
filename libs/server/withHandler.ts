@@ -1,18 +1,20 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
+type method = "GET" | "POST" | "DELETE";
+
 export interface ResponseType {
   ok: boolean;
   [key: string]: any;
 }
 
 interface configType {
-  method: "GET" | "POST" | "DELETE";
+  methods: method[];
   handler: (req: NextApiRequest, res: NextApiResponse) => void;
   isPrivate?: boolean;
 }
 
 export default function withHandler({
-  method,
+  methods,
   handler,
   isPrivate = true,
 }: configType) {
@@ -20,7 +22,9 @@ export default function withHandler({
     req: NextApiRequest,
     res: NextApiResponse
   ): Promise<any> {
-    if (req.method !== method) return res.status(405).end();
+    // if (req.method !== method)
+    if (req.method && !methods.includes(req.method as any))
+      return res.status(405).end();
     if (isPrivate && !req.session.user) {
       return res.status(401).json({ ok: false, error: "Plz log in..." });
     }
