@@ -22,7 +22,6 @@ export default function withHandler({
     req: NextApiRequest,
     res: NextApiResponse
   ): Promise<any> {
-    // if (req.method !== method)
     if (req.method && !methods.includes(req.method as any))
       return res.status(405).end();
     if (isPrivate && !req.session.user) {
