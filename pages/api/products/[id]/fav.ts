@@ -7,7 +7,6 @@ async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponseType>
 ) {
-  //   const { id } = req.query;
   const {
     query: { id },
     session: { user },
@@ -37,7 +36,7 @@ async function handler(
         },
         product: {
           connect: {
-            productId: +id!.toString(),
+            id: +id!.toString(),
           },
         },
       },
