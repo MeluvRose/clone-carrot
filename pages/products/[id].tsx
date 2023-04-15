@@ -34,6 +34,7 @@ const ItemDetail: NextPage = () => {
     // mutate("/api/users/me", (prev: any) => ({ ok: !prev.ok }), false);
     toggleFav({});
   };
+
   /* 
   maybe 'user.id' is possible to replace like 'user.username'
   (first, i need updating model 'user' for this process)
