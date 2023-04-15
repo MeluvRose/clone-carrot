@@ -38,8 +38,6 @@ async function handler(
     },
   });
 
-  // console.log(terms);
-  // console.log(relatedProducts);
   return res.json({
     ok: true,
     product,
