@@ -27,6 +27,8 @@ const ItemDetail: NextPage = () => {
   const [toggleFav] = useMutation(`/api/products/${router.query.id}/fav`);
   const onFavClick = () => {
     toggleFav({});
+    if (!data) return;
+    mutate({ ...data, isLiked: !data.isLiked }, false);
   };
   /* 
   maybe 'user.id' is possible to replace like 'user.username'
@@ -107,7 +109,7 @@ const ItemDetail: NextPage = () => {
         <div>
           <h2 className="text-2xl font-bold text-gray-900">Similar items</h2>
           <div className=" mt-6 grid grid-cols-2 gap-4">
-            {data?.relatedProducts.map((product, idx) => (
+            {data?.relatedProducts?.map((product, idx) => (
               <Link href={`/products/${product.id}`} key={idx}>
                 <div key={product.id}>
                   <div className="h-56 w-full mb-4 bg-slate-300" />
